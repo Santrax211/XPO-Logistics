@@ -14,13 +14,21 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
     unit: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     category_id: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    status: {
+      type: DataTypes.ENUM('ACTIVE', 'INACTIVE'),
+      defaultValue: 'ACTIVE'
     }
   }, {
     tableName: 'Products',

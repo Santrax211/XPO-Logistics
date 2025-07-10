@@ -1,12 +1,11 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-/**
- * Verifica si el token JWT es válido
- */
 exports.verifyToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
-  if (!authHeader) return res.status(403).json({ message: 'Token no proporcionado' });
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(403).json({ message: 'Token no proporcionado o formato incorrecto' });
+  }
 
   const token = authHeader.split(' ')[1];
 
@@ -17,14 +16,21 @@ exports.verifyToken = (req, res, next) => {
   });
 };
 
-/**
- * Verifica si el usuario tiene el rol requerido
- * Siempre permite al rol 'SuperAdmin'
- */
+// Rol único requerido
 exports.checkRole = (requiredRole) => {
   return (req, res, next) => {
     if (!req.user || (req.user.role !== requiredRole && req.user.role !== 'SuperAdmin')) {
       return res.status(403).json({ message: 'Acceso denegado: rol insuficiente' });
+    }
+    next();
+  };
+};
+
+// Opcional: múltiples roles permitidos
+exports.checkRoles = (roles = []) => {
+  return (req, res, next) => {
+    if (!req.user || (!roles.includes(req.user.role) && req.user.role !== 'SuperAdmin')) {
+      return res.status(403).json({ message: 'Acceso denegado: roles insuficientes' });
     }
     next();
   };
