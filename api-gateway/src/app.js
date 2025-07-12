@@ -1,25 +1,26 @@
 const express = require('express');
-const cors = require('cors');
 const morgan = require('morgan');
+const cors = require('cors');
 const dotenv = require('dotenv');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
+const gatewayRoutes = require('./routes/gateway.routes');
 
 dotenv.config();
 
 const app = express();
 
-app.use(cors()); 
-app.use(morgan('dev')); 
-app.use(express.json()); 
+app.use(morgan('dev'));      
+app.use(express.json());    
+app.use(cors());            
 
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: '3.0.0',
     info: {
-      title: 'Integración Service API',
+      title: 'API Gateway',
       version: '1.0.0',
-      description: 'API para integrar y registrar eventos entre sistemas externos',
+      description: 'API Gateway para enrutar solicitudes a microservicios',
     },
   },
   apis: ['./routes/*.js'], 
@@ -27,9 +28,7 @@ const swaggerOptions = {
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
 
-const erpLogRoutes = require('./routes/erpLog.routes');
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // Documentación Swagger
-app.use('/api/erp-logs', erpLogRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)); 
+app.use('/', gatewayRoutes); 
 
 module.exports = app;

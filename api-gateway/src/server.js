@@ -1,4 +1,4 @@
-const app = require('./app');
+const app = require('./src/app');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -6,5 +6,5 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`Servidor de Integración en ejecución en el puerto ${PORT}`);
+  console.log(`API Gateway escuchando en el puerto ${PORT}`);
 });
