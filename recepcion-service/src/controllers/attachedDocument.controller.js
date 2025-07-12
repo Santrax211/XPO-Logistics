@@ -1,5 +1,5 @@
 const { models } = require('../models');
-o
+
 exports.createAttachedDocument = async (req, res) => {
   const { ingress_id, document_type, url } = req.body;
   try {
