@@ -1,0 +1,89 @@
+services:
+  inventario:
+    build: 
+      context: ./inventario-service
+      dockerfile: Dockerfile
+    env_file:
+      - ./inventario-service/.env
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db_inventario
+
+  despacho:
+    build: 
+      context: ./despacho-service
+      dockerfile: Dockerfile
+    env_file:
+      - ./despacho-service/.env
+    ports:
+      - "3002:3002"
+    depends_on:
+      - db_despacho
+
+  reportes:
+    build: 
+      context: ./reportes-service
+      dockerfile: Dockerfile
+    env_file:
+      - ./reportes-service/.env
+    ports:
+      - "3003:3003"
+    depends_on:
+      - db_reportes
+
+  seguridad:
+    build: 
+      context: ./seguridad-service
+      dockerfile: Dockerfile
+    env_file:
+      - ./seguridad-service/.env
+    ports:
+      - "3004:3004"
+    depends_on:
+      - db_usuarios
+
+  recepcion:
+    build: 
+      context: ./recepcion-service
+      dockerfile: Dockerfile
+    env_file:
+      - ./recepcion-service/.env
+    ports:
+      - "3005:3005"
+    depends_on:
+      - db_recepcion
+
+  db_inventario:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: inventario_db
+
+  db_despacho:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: despacho_db
+
+  db_reportes:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: reporte_db
+
+  db_usuarios:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: usuarios_db
+
+  db_recepcion:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: recepcion_db
+
+networks:
+  default:
+    driver: bridge

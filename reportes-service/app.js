@@ -27,9 +27,9 @@ const swaggerOptions = {
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
 
-const reportRequestRoutes = require('./routes/reportRequest.routes');
-const reportResultRoutes = require('./routes/reportResult.routes');
-const periodicSummaryRoutes = require('./routes/periodicSummary.routes');
+const reportRequestRoutes = require('./src/routes/reportRequest.routes');
+const reportResultRoutes = require('./src/routes/reportResult.routes');
+const periodicSummaryRoutes = require('./src/routes/periodicSummary.routes');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // Documentación Swagger
 app.use('/api/report-requests', reportRequestRoutes);

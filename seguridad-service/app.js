@@ -27,7 +27,7 @@ const swaggerOptions = {
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
 
-const authRoutes = require('./routes/auth.routes');
+const authRoutes = require('./src/routes/auth.routes');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/api/auth', authRoutes);

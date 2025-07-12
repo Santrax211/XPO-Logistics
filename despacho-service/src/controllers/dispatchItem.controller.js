@@ -1,4 +1,4 @@
-const dispatchItemService = require('../services/dispatchItem.service');
+const dispatchItemService = require('../services/dispatchItem.service.js');
 
 exports.createDispatchItem = async (req, res) => {
   try {
