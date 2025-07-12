@@ -27,11 +27,11 @@ const swaggerOptions = {
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
 
-const supplierRoutes = require('./routes/supplier.routes');
-const ingressRoutes = require('./routes/ingress.routes');
-const ingressItemRoutes = require('./routes/ingressItem.routes');
-const ingressValidationRoutes = require('./routes/ingressValidation.routes');
-const attachedDocumentRoutes = require('./routes/attachedDocument.routes');
+const supplierRoutes = require('./src/routes/supplier.routes');
+const ingressRoutes = require('./src/routes/ingress.routes');
+const ingressItemRoutes = require('./src/routes/ingressItem.routes');
+const ingressValidationRoutes = require('./src/routes/ingressValidation.routes');
+const attachedDocumentRoutes = require('./src/routes/attachedDocument.routes');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // Documentación Swagger
 app.use('/api/suppliers', supplierRoutes);

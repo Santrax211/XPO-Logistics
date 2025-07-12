@@ -1,4 +1,4 @@
-const pickingService = require('../services/picking.service');
+const pickingService = require('../services/picking.service.js');
 
 exports.createPicking = async (req, res) => {
   try {

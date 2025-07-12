@@ -27,11 +27,11 @@ const swaggerOptions = {
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
 
-const dispatchOrderRoutes = require('./routes/dispatchOrder.routes');
-const dispatchItemRoutes = require('./routes/dispatchItem.routes');
-const pickingRoutes = require('./routes/picking.routes');
-const dispatchStatusRoutes = require('./routes/dispatchStatus.routes');
-const carrierRoutes = require('./routes/carrier.routes');
+const dispatchOrderRoutes = require('./src/routes/dispatchOrder.routes');
+const dispatchItemRoutes = require('./src/routes/dispatchItem.routes');
+const pickingRoutes = require('./src/routes/picking.routes');
+const dispatchStatusRoutes = require('./src/routes/dispatchStatus.routes');
+const carrierRoutes = require('./src/routes/carrier.routes');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // Documentación Swagger
 app.use('/api/dispatch-orders', dispatchOrderRoutes);

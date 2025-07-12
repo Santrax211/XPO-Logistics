@@ -1,4 +1,4 @@
-const dispatchOrderService = require('../services/dispatchOrder.service');
+const dispatchOrderService = require('../services/dispatchOrder.service.js');
 
 exports.createDispatchOrder = async (req, res) => {
   try {

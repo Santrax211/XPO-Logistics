@@ -30,3 +30,4 @@ router.post('/', [verifyToken, checkRoles('Administrador')], reportRequestContro
 router.get('/', [verifyToken, checkRoles('Administrador', 'Operador')], reportRequestController.getReportRequests);
 
 module.exports = router;
+

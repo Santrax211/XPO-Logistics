@@ -1,4 +1,4 @@
-const carrierService = require('../services/carrier.service');
+const carrierService = require('../services/carrier.service.js');
 
 exports.createCarrier = async (req, res) => {
   try {
