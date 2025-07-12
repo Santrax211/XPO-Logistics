@@ -12,8 +12,8 @@ const sequelize = new Sequelize(
   }
 );
 
-const Users = require('./users.model')(sequelize, DataTypes);
-const Roles = require('./roles.model')(sequelize, DataTypes);
+const Users = require('./user.model')(sequelize, DataTypes);
+const Roles = require('./role.model')(sequelize, DataTypes);
 const UserRole = require('./userRole.model')(sequelize, DataTypes);
 const AuditLog = require('./auditLog.model')(sequelize, DataTypes);
 

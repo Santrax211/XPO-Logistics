@@ -9,6 +9,8 @@ services:
       - "3001:3001"
     depends_on:
       - db_inventario
+    networks:
+      - xpo-network
 
   despacho:
     build: 
@@ -20,6 +22,8 @@ services:
       - "3002:3002"
     depends_on:
       - db_despacho
+    networks:
+      - xpo-network
 
   reportes:
     build: 
@@ -31,6 +35,8 @@ services:
       - "3003:3003"
     depends_on:
       - db_reportes
+    networks:
+      - xpo-network
 
   seguridad:
     build: 
@@ -42,6 +48,8 @@ services:
       - "3004:3004"
     depends_on:
       - db_usuarios
+    networks:
+      - xpo-network
 
   recepcion:
     build: 
@@ -53,37 +61,77 @@ services:
       - "3005:3005"
     depends_on:
       - db_recepcion
+    networks:
+      - xpo-network
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    env_file:
+      - ./api-gateway/.env
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+      - inventario
+      - despacho
+      - reportes
+      - seguridad
+      - recepcion
+    networks:
+      - xpo-network
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - xpo-network
 
   db_inventario:
     image: mysql:8
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: inventario_db
+    networks:
+      - xpo-network
 
   db_despacho:
     image: mysql:8
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: despacho_db
+    networks:
+      - xpo-network
 
   db_reportes:
     image: mysql:8
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: reporte_db
+    networks:
+      - xpo-network
 
   db_usuarios:
     image: mysql:8
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: usuarios_db
+    networks:
+      - xpo-network   
 
   db_recepcion:
     image: mysql:8
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: recepcion_db
+    networks:
+      - xpo-network
 
 networks:
   default:
+    driver: bridge
+  xpo-network:
     driver: bridge
